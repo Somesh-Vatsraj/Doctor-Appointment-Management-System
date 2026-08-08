@@ -1,0 +1,39 @@
+doctor-appointment-system/
+├── config/
+│   └── database.php
+├── includes/
+│   ├── auth.php
+│   ├── functions.php
+│   ├── header.php
+│   └── footer.php
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+├── database/
+│   └── database.sql
+├── auth/
+│   ├── login.php
+│   ├── register.php
+│   └── logout.php
+├── admin/
+│   ├── dashboard.php
+│   ├── doctors.php
+│   ├── patients.php
+│   ├── appointments.php
+│   └── bills.php
+├── doctor/
+│   ├── dashboard.php
+│   ├── appointments.php
+│   ├── prescription-create.php
+│   └── bill-create.php
+├── patient/
+│   ├── dashboard.php
+│   ├── book-appointment.php
+│   ├── appointments.php
+│   ├── prescriptions.php
+│   └── bills.php
+├── print-prescription.php
+├── print-bill.php
+└── index.php
