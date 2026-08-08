@@ -1,7 +1,5 @@
 <?php
 
-if (extension_loaded('pdo_mysql')) {
-    echo "✅ PDO MySQL is enabled";
-} else {
-    echo "❌ PDO MySQL is NOT enabled";
-}
+echo extension_loaded('pdo_mysql')
+    ? '✅ PDO MySQL is enabled'
+    : '❌ PDO MySQL is NOT enabled';
