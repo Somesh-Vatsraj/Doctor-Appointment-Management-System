@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'doctor_appointment_db');
+define('DB_HOST', 'shinkansen.proxy.rlwy.net:10211');
+define('DB_NAME', 'railway');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'UQOuAebEJeoyxeUHuSnrHCgXMnrNvfGf');
 
 try {
     $pdo = new PDO(
