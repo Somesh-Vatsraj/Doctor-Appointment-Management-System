@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 define('DB_HOST', 'shinkansen.proxy.rlwy.net');
 define('DB_PORT', '10211');
-define('DB_NAME', 'railway');
+define('DB_NAME', 'doctor_appointment_db');
 define('DB_USER', 'root');
 define('DB_PASS', 'UQOuAebEJeoyxeUHuSnrHCgXMnrNvfGf');
 
