@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
-error_reporting(E_ALL);
-ini_set('display_errors', '0');
-ini_set('log_errors', '1');
+
 
 define('DB_HOST', 'shinkansen.proxy.rlwy.net');
 define('DB_PORT', '10211');
