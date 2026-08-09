@@ -83,7 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="register.php" class="small fw-bold text-decoration-none">Register as Patient</a>
         </div>
         <div class="alert alert-info mt-3 p-2 small text-center">
-            Demo: <b>admin@medicare.com</b> | <b>password123</b>
+            Demo: <b>admin@medicare.com</b> | <b>123456</b>
+            Demo: <b>sk@medicare.com</b> | <b>123456</b>
+            Demo: <b>ss@medicare.com</b> | <b>123456</b>
+            Demo: <b>pt@medicare.com</b> | <b>123456</b>
         </div>
     </div>
 </div>
