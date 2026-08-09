@@ -1,89 +1,37 @@
 <?php
 declare(strict_types=1);
-
 require_once __DIR__ . '/../includes/auth.php';
-
 check_auth(['doctor']);
+require_once __DIR__ . '/../includes/header.php';
 
 $doctorId = (int)$_SESSION['doctor_id'];
 
 // Status updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-
     if (verify_csrf_token($_POST['csrf_token'] ?? '')) {
-
         $apptId = (int)$_POST['appointment_id'];
         $action = $_POST['action'];
 
         if ($action === 'confirm') {
-
-            $stmt = $pdo->prepare("
-                UPDATE appointments
-                SET status = 'Confirmed'
-                WHERE id = ? AND doctor_id = ?
-            ");
-
-            $stmt->execute([
-                $apptId,
-                $doctorId
-            ]);
-
+            $stmt = $pdo->prepare("UPDATE appointments SET status = 'Confirmed' WHERE id = ? AND doctor_id = ?");
+            $stmt->execute([$apptId, $doctorId]);
             set_flash('success', 'Appointment confirmed.');
-
         } elseif ($action === 'reject') {
-
-            $stmt = $pdo->prepare("
-                UPDATE appointments
-                SET status = 'Rejected'
-                WHERE id = ? AND doctor_id = ?
-            ");
-
-            $stmt->execute([
-                $apptId,
-                $doctorId
-            ]);
-
+            $stmt = $pdo->prepare("UPDATE appointments SET status = 'Rejected' WHERE id = ? AND doctor_id = ?");
+            $stmt->execute([$apptId, $doctorId]);
             set_flash('info', 'Appointment rejected.');
-
         } elseif ($action === 'cancel') {
-
-            $reason = trim(
-                $_POST['cancellation_reason'] ?? 'Canceled by doctor'
-            );
-
-            $stmt = $pdo->prepare("
-                UPDATE appointments
-                SET
-                    status = 'Canceled by Doctor',
-                    canceled_by = 'Doctor',
-                    cancellation_reason = ?,
-                    canceled_at = NOW()
-                WHERE id = ?
-                  AND doctor_id = ?
-                  AND status != 'Completed'
-            ");
-
-            $stmt->execute([
-                $reason,
-                $apptId,
-                $doctorId
-            ]);
-
+            $reason = trim($_POST['cancellation_reason'] ?? 'Canceled by doctor');
+            $stmt = $pdo->prepare("UPDATE appointments SET status = 'Canceled by Doctor', canceled_by = 'Doctor', cancellation_reason = ?, canceled_at = NOW() WHERE id = ? AND doctor_id = ? AND status != 'Completed'");
+            $stmt->execute([$reason, $apptId, $doctorId]);
             set_flash('warning', 'Appointment canceled.');
         }
-
         redirect('appointments.php');
     }
 }
 
-// Get doctor's appointments
 $stmt = $pdo->prepare("
-    SELECT
-        a.*,
-        u.name AS patient_name,
-        u.phone AS patient_phone,
-        pr.id AS prescription_id,
-        b.id AS bill_id
+    SELECT a.*, u.name AS patient_name, u.phone AS patient_phone, pr.id AS prescription_id, b.id AS bill_id
     FROM appointments a
     JOIN patients p ON a.patient_id = p.id
     JOIN users u ON p.user_id = u.id
@@ -92,13 +40,8 @@ $stmt = $pdo->prepare("
     WHERE a.doctor_id = ?
     ORDER BY a.appointment_date DESC, a.appointment_time DESC
 ");
-
 $stmt->execute([$doctorId]);
-
 $appointments = $stmt->fetchAll();
-
-// HTML output AFTER all redirects/processing
-require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <h3 class="fw-bold mb-4">Manage Patient Appointments</h3>
